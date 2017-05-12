@@ -1,183 +1,28 @@
-/*
-const mongoose = require('mongoose');
+const {mongoose} = require('./db/mongoose');
 
-mongoose.Promise = global.Promise;
-mongoose.connect('mongodb://localhost:27017/TodoApp');
+var express = require('express');
+var bodyParser = require('body-parser');
 
-const Todo = mongoose.model('Todo', {
-    text: {
-        type: String,
-        required: true,
-        minlength: 1,
-        trim: true
-    },
-    completed: {
-        type: Boolean,
-        default: false
-    }, 
-    completedAt: {
-        type: Number,
-        default: null
-    }
-});
+var {Todo} = require('./models/todo');
+var {User} = require('./models/user');
 
-// by default mongoose try convert things to string == can pass text: true / 100 + 1 (101)... 
-let newTodo = new Todo({ text: 1 + 2 });
+var app = express();
 
-newTodo.save().then((res) => {
-    console.log(res);
-}, (e) => {
-    console.log('Unable to save data');
+app.use(bodyParser.json());
+
+app.post('/todos', (req, res) => {
+   // console.log(req.body);
+    var todo = new Todo({
+        text: req.body.text
+    });
+    todo.save().then((doc) => {
+        res.send(doc);
+    }, (e) => {
+        res.status(400).send(e);
+    });
 });
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-*/
-
-const mg = require('mongoose');
-
-mg.Promise = global.Promise;
-mg.connect('mongodb://localhost:27017/TodoApp');
-
-const userSchema = {
-    email: {
-        type: String,
-        required: true,
-        trim: true,
-        minlength: 5
-    },
-    name: {
-        type: String,
-        default: 'Anonymus',
-        trim: true,
-        minlength: 1
-    }
-};
-
-const User = mg.model('User', userSchema);
-
-let newUser = new User({email: 'askdf@adfj.com'});
-newUser.save().then((res) => {
-    console.log(res);
-}, (err) => {
-    console.log('unable to save', err);
+app.listen(3000, () => {
+    console.log('Started on p 3000');
 });
-
-        
-
-    
-
-
-
-
-
-
-
-
