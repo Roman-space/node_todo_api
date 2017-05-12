@@ -1,3 +1,4 @@
+/*
 const mongoose = require('mongoose');
 
 mongoose.Promise = global.Promise;
@@ -28,3 +29,155 @@ newTodo.save().then((res) => {
 }, (e) => {
     console.log('Unable to save data');
 });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+*/
+
+const mg = require('mongoose');
+
+mg.Promise = global.Promise;
+mg.connect('mongodb://localhost:27017/TodoApp');
+
+const userSchema = {
+    email: {
+        type: String,
+        required: true,
+        trim: true,
+        minlength: 5
+    },
+    name: {
+        type: String,
+        default: 'Anonymus',
+        trim: true,
+        minlength: 1
+    }
+};
+
+const User = mg.model('User', userSchema);
+
+let newUser = new User({email: 'askdf@adfj.com'});
+newUser.save().then((res) => {
+    console.log(res);
+}, (err) => {
+    console.log('unable to save', err);
+});
+
+        
+
+    
+
+
+
+
+
+
+
+
